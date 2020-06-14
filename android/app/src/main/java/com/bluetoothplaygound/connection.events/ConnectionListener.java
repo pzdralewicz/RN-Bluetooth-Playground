@@ -1,4 +1,4 @@
-package com.visamobile.connection.events;
+package com.bluetoothplaygound.connection.events;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;

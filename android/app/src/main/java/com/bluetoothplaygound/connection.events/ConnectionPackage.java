@@ -1,4 +1,4 @@
-package com.visamobile.connection.events;
+package com.bluetoothplaygound.connection.events;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

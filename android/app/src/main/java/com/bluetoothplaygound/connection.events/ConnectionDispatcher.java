@@ -1,4 +1,4 @@
-package com.visamobile.connection.events;
+package com.bluetoothplaygound.connection.events;
 
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReactContext;

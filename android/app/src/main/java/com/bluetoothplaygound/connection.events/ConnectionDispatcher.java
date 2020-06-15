@@ -8,7 +8,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 class ConnectionDispatcher {
 
-  @ReactMethod
   void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
     reactContext
         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)

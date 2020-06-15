@@ -26,14 +26,9 @@ class ConnectionFacade {
     eventDispatcher.sendEvent(
         reactContext, STATUS.DISCONNECTED.name(), queryWritableMapFromDevice(device));
   }
-  public void connectionError(BluetoothDevice device, ReactApplicationContext reactContext) {
-    eventDispatcher.sendEvent(
-        reactContext, STATUS.ERROR.name(), queryWritableMapFromDevice(device));
-  }
 
   private enum STATUS {
     CONNECTED,
-    DISCONNECTED,
-    ERROR
+    DISCONNECTED
   }
 }

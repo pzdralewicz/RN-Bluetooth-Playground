@@ -18,11 +18,11 @@ public class ConnectionListener {
           String action = intent.getAction();
           BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
-          ConnectionFacade connectionFacade = new ConnectionFacade();
+          ConnectionService connectionService = new ConnectionService();
           if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-            connectionFacade.connected(device, reactContext);
+            connectionService.connected(device, reactContext);
           } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-            connectionFacade.disconnected(device, reactContext);
+            connectionService.disconnected(device, reactContext);
           }
         }
       };

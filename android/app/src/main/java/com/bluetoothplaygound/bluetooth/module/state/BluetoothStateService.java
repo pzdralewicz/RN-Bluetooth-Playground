@@ -3,7 +3,7 @@ package com.bluetoothplaygound.bluetooth.module.state;
 import com.bluetoothplaygound.bluetooth.EventDispatcher;
 import com.facebook.react.bridge.ReactApplicationContext;
 
-class BluetoothStateFacade {
+class BluetoothStateService {
 
   private final EventDispatcher eventDispatcher = new EventDispatcher();
 

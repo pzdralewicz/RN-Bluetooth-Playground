@@ -14,12 +14,12 @@ public class BluetoothStateListener {
       new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-          BluetoothStateFacade bluetoothStateFacade = new BluetoothStateFacade();
+          BluetoothStateService bluetoothStateService = new BluetoothStateService();
           if (intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1) == BluetoothAdapter.STATE_OFF) {
-            bluetoothStateFacade.turnedOff(reactContext);
+            bluetoothStateService.turnedOff(reactContext);
           } else if (intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1)
               == BluetoothAdapter.STATE_ON) {
-            bluetoothStateFacade.turnedOn(reactContext);
+            bluetoothStateService.turnedOn(reactContext);
           }
         }
       };

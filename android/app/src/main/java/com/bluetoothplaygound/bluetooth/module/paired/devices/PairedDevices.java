@@ -16,7 +16,7 @@ public class PairedDevices {
   }
 
   @ReactMethod
-  void queryDevices(Promise promise) {
+  void listPaired(Promise promise) {
     WritableArray params = queryWritableMapFromDevice(bluetoothAdapter.getBondedDevices());
     promise.resolve(params);
   }

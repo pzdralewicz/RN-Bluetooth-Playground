@@ -9,7 +9,7 @@ export interface BluetoothBridge extends BluetoothNativeModule {
 
 class Bluetooth implements BluetoothBridge {
   nativeModule = <NativeModulesStatic & BluetoothNativeModule & EventSubscriptionVendor>(
-    NativeModules.pairedDeviceConnectingEvents
+    NativeModules.BluetoothModule
   );
   private static instance: Bluetooth;
 

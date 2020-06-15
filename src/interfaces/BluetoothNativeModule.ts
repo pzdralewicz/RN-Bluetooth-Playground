@@ -1,5 +1,3 @@
-import {NativeModulesStatic} from 'react-native';
-
 export interface BluetoothNativeModule {
   enableBluetooth: () => Promise<boolean>;
   disableBluetooth: () => Promise<boolean>;

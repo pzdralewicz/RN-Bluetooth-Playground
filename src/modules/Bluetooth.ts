@@ -1,4 +1,4 @@
-import {NativeModules, NativeModulesStatic} from 'react-native';
+import {EventSubscriptionVendor, NativeModules, NativeModulesStatic} from 'react-native';
 import {
   BluetoothNativeModule,
 } from '../interfaces/BluetoothNativeModule';
@@ -8,7 +8,7 @@ export interface BluetoothBridge extends BluetoothNativeModule {
 }
 
 class Bluetooth implements BluetoothBridge {
-  nativeModule = <NativeModulesStatic & BluetoothNativeModule>(
+  nativeModule = <NativeModulesStatic & BluetoothNativeModule & EventSubscriptionVendor>(
     NativeModules.pairedDeviceConnectingEvents
   );
   private static instance: Bluetooth;

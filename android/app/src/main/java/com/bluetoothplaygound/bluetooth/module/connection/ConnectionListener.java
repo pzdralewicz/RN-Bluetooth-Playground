@@ -1,10 +1,10 @@
-package com.bluetoothplaygound.connection.events;
+package com.bluetoothplaygound.bluetooth.module.connection;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.IntentFilter;
 import com.facebook.react.bridge.ReactApplicationContext;
 
 public class ConnectionListener {
@@ -17,12 +17,11 @@ public class ConnectionListener {
         public void onReceive(Context context, Intent intent) {
           String action = intent.getAction();
           BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
           ConnectionFacade connectionFacade = new ConnectionFacade();
           if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-            Log.i("BluetoothListener", "Połączono urządzenie: " + device.getName());
             connectionFacade.connected(device, reactContext);
           } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-            Log.i("BluetoothListener", "Rozłączono urządzenie: " + device.getName());
             connectionFacade.disconnected(device, reactContext);
           }
         }
@@ -30,5 +29,14 @@ public class ConnectionListener {
 
   public ConnectionListener(ReactApplicationContext reactContext) {
     this.reactContext = reactContext;
+    registerBluetoothReceiver();
+  }
+
+  private void registerBluetoothReceiver() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+    filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+    filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+    reactContext.registerReceiver(mReceiver, filter);
   }
 }

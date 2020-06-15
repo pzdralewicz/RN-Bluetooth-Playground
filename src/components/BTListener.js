@@ -4,7 +4,7 @@ import {NativeModules, NativeEventEmitter, Text, View} from 'react-native';
 export const BTListener = () => {
   useEffect(() => {
     const emitter = new NativeEventEmitter(
-      NativeModules.pairedDeviceConnectingEvents,
+      NativeModules.BluetoothModule,
     );
     const listeners = [
       emitter.addListener('CONNECTED', (device) => {
@@ -12,6 +12,15 @@ export const BTListener = () => {
       }),
       emitter.addListener('DISCONNECTED', (device) => {
         console.log('DISCONNECT', device);
+      }),
+      emitter.addListener('TURNED_ON', () => {
+        console.log('TURNED_ON');
+      }),
+      emitter.addListener('TURNED_OFF', () => {
+        console.log('TURNED_OFF');
+      }),
+      emitter.addListener('ERROR', () => {
+        console.log('TURNED_OFF');
       }),
     ];
 

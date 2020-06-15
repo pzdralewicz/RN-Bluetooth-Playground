@@ -18,10 +18,6 @@ export interface BluetoothNativeModule {
   isBLE: (macAddress: string) => Promise<boolean>;
 }
 
-export interface BluetoothBridge extends BluetoothNativeModule {
-  getNativeModule: () => NativeModulesStatic;
-}
-
 export interface Device {
   address: string;
   name: string;

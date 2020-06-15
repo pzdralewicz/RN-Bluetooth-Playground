@@ -1,8 +1,11 @@
 import {NativeModules, NativeModulesStatic} from 'react-native';
 import {
-  BluetoothBridge,
   BluetoothNativeModule,
 } from '../interfaces/BluetoothNativeModule';
+
+export interface BluetoothBridge extends BluetoothNativeModule {
+  getNativeModule: () => NativeModulesStatic;
+}
 
 class Bluetooth implements BluetoothBridge {
   nativeModule = <NativeModulesStatic & BluetoothNativeModule>(

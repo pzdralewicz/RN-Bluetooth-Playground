@@ -1,28 +1,24 @@
-package com.bluetoothplaygound.connection.events;
+package com.bluetoothplaygound.bluetooth.module.connection;
+
+import static com.bluetoothplaygound.bluetooth.BluetoothDeviceMapFactory.queryWritableMapFromDevice;
 
 import android.bluetooth.BluetoothDevice;
+import com.bluetoothplaygound.bluetooth.EventDispatcher;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 
-public class ConnectionFacade {
+class ConnectionService {
 
-  private final ConnectionDispatcher connectionDispatcher = new ConnectionDispatcher();
-
-  private WritableMap queryWritableMapFromDevice(BluetoothDevice device) {
-    WritableMap params = Arguments.createMap();
-    params.putString("deviceName", device.getName());
-    params.putString("deviceAddress", device.getAddress());
-    return params;
-  }
+  private final EventDispatcher eventDispatcher = new EventDispatcher();
 
   public void connected(BluetoothDevice device, ReactApplicationContext reactContext) {
-    connectionDispatcher.sendEvent(
+    eventDispatcher.sendEvent(
         reactContext, STATUS.CONNECTED.name(), queryWritableMapFromDevice(device));
   }
 
   public void disconnected(BluetoothDevice device, ReactApplicationContext reactContext) {
-    connectionDispatcher.sendEvent(
+    eventDispatcher.sendEvent(
         reactContext, STATUS.DISCONNECTED.name(), queryWritableMapFromDevice(device));
   }
 

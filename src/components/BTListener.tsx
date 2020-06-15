@@ -15,6 +15,15 @@ export const BTListener = () => {
       emitter.addListener('DISCONNECTED', (device) => {
         console.log('DISCONNECT', device);
       }),
+      emitter.addListener('TURNED_ON', () => {
+        console.log('TURNED_ON');
+      }),
+      emitter.addListener('TURNED_OFF', () => {
+        console.log('TURNED_OFF');
+      }),
+      emitter.addListener('ERROR', () => {
+        console.log('TURNED_OFF');
+      }),
     ];
 
     return () => listeners.forEach(listener => listener.remove());

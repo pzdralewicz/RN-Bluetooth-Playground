@@ -1,11 +1,12 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {BTListener} from './src/components/BTListener';
 
 const App = () => {
   return (
     <>
       <SafeAreaView style={styles.Container}>
-        <Text>Test 123</Text>
+        <BTListener />
       </SafeAreaView>
     </>
   );

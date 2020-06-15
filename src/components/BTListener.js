@@ -7,15 +7,15 @@ export const BTListener = () => {
       NativeModules.pairedDeviceConnectingEvents,
     );
     const listeners = [
-      emitter.addListener('CONNECT', (device) => {
+      emitter.addListener('CONNECTED', (device) => {
         console.log('CONNECT', device);
       }),
-      emitter.addListener('DISCONNECT', (device) => {
+      emitter.addListener('DISCONNECTED', (device) => {
         console.log('DISCONNECT', device);
       }),
     ];
 
-    return listeners.forEach(listener => listener.remove());
+    // return listeners.forEach(listener => listener.remove());
   }, []);
 
   return (

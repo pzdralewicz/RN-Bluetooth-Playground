@@ -15,7 +15,7 @@ public class ConnectionModule extends ReactContextBaseJavaModule {
     filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
     filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
     filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-    reactContext.registerReceiver(new ConnectionListener(reactContext).mReceiver, filter);
+    reactContext.registerReceiver(new ConnectionListener(getReactApplicationContext()).mReceiver, filter);
   }
 
   @Override

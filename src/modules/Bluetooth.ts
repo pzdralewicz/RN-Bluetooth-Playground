@@ -1,13 +1,18 @@
-import {NativeModules} from 'react-native';
-import {BluetoothModule} from '../interfaces/BluetoothNativeModule';
+import {NativeModules, NativeModulesStatic} from 'react-native';
+import {
+  BluetoothBridge,
+  BluetoothNativeModule,
+} from '../interfaces/BluetoothNativeModule';
 
-export default class Bluetooth {
-  nativeModule = NativeModules.pairedDeviceConnectingEvents;
+class Bluetooth implements BluetoothBridge {
+  nativeModule = <NativeModulesStatic & BluetoothNativeModule>(
+    NativeModules.pairedDeviceConnectingEvents
+  );
   private static instance: Bluetooth;
 
   private constructor() {}
 
-  public static getInstance = () => {
+  public static getInstance = (): Bluetooth => {
     if (Bluetooth.instance === undefined) {
       Bluetooth.instance = new Bluetooth();
     }
@@ -25,6 +30,14 @@ export default class Bluetooth {
     return await this.nativeModule.disableBluetooth();
   };
 
+  requestEnable = async () => {
+    return await this.nativeModule.requestEnable();
+  };
+
+  isBluetoothActive = async () => {
+    return await this.nativeModule.isBluetoothActive();
+  };
+
   connect = async (macAddress: string) => {
     return await this.nativeModule.connect(macAddress);
   };
@@ -36,4 +49,22 @@ export default class Bluetooth {
   isConnected = async (macAddress: string) => {
     return await this.nativeModule.isConnected(macAddress);
   };
+
+  pair = async (macAddress: string) => {
+    return await this.nativeModule.pair(macAddress);
+  };
+
+  listPaired = async () => {
+    return await this.nativeModule.listPaired();
+  };
+
+  listUnpaired = async () => {
+    return await this.nativeModule.listUnpaired();
+  };
+
+  isBLE = async (macAddress: string) => {
+    return await this.nativeModule.isBLE(macAddress);
+  };
 }
+
+export default Bluetooth;

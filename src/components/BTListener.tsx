@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
-import {NativeModules, NativeEventEmitter, Text, View} from 'react-native';
+import {NativeEventEmitter, Text, View} from 'react-native';
+import BluetoothModule from '../modules/Bluetooth';
 
 export const BTListener = () => {
+  const Bluetooth = BluetoothModule.getInstance();
+
   useEffect(() => {
-    const emitter = new NativeEventEmitter(
-      NativeModules.pairedDeviceConnectingEvents,
-    );
+    const emitter = new NativeEventEmitter(Bluetooth.getNativeModule());
+
     const listeners = [
       emitter.addListener('CONNECT', (device) => {
         console.log('CONNECT', device);
@@ -15,8 +17,10 @@ export const BTListener = () => {
       }),
     ];
 
-    return listeners.forEach(listener => listener.remove());
+    return () => listeners.forEach(listener => listener.remove());
   }, []);
+
+
 
   return (
     <View>

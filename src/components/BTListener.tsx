@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NativeEventEmitter, Text, View} from 'react-native';
+import {Button, NativeEventEmitter, View} from 'react-native';
 import BluetoothModule from '../modules/Bluetooth';
 
 export const BTListener = () => {
@@ -26,14 +26,20 @@ export const BTListener = () => {
       }),
     ];
 
-    return () => listeners.forEach(listener => listener.remove());
+    return () => listeners.forEach((listener) => listener.remove());
   }, []);
 
+  const onButtonPressed = () => {
+    Bluetooth.getNativeModule()
 
+    Bluetooth.listPaired()
+      .then((test) => console.log(test))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <View>
-      <Text>test</Text>
+      <Button title="test button" onPress={onButtonPressed} />
     </View>
   );
 };

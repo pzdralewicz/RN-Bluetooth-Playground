@@ -15,7 +15,7 @@ export const BTListener = () => {
       }),
     ];
 
-    // return listeners.forEach(listener => listener.remove());
+    return () => listeners.forEach(listener => listener.remove());
   }, []);
 
   return (

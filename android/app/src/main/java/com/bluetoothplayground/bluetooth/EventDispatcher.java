@@ -1,4 +1,4 @@
-package com.bluetoothplaygound.bluetooth;
+package com.bluetoothplayground.bluetooth;
 
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReactContext;

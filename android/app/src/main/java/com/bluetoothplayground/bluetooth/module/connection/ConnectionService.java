@@ -1,9 +1,9 @@
-package com.bluetoothplaygound.bluetooth.module.connection;
+package com.bluetoothplayground.bluetooth.module.connection;
 
-import static com.bluetoothplaygound.bluetooth.BluetoothDeviceMapFactory.queryWritableMapFromDevice;
+import static com.bluetoothplayground.bluetooth.BluetoothDeviceMapFactory.queryWritableMapFromDevice;
 
 import android.bluetooth.BluetoothDevice;
-import com.bluetoothplaygound.bluetooth.EventDispatcher;
+import com.bluetoothplayground.bluetooth.EventDispatcher;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;

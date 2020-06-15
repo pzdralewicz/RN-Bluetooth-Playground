@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.bluetoothplaygound"
+        applicationId "com.bluetoothplayground"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

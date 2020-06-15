@@ -9,10 +9,10 @@ export const BTListener = () => {
     const emitter = new NativeEventEmitter(Bluetooth.getNativeModule());
 
     const listeners = [
-      emitter.addListener('CONNECT', (device) => {
+      emitter.addListener('CONNECTED', (device) => {
         console.log('CONNECT', device);
       }),
-      emitter.addListener('DISCONNECT', (device) => {
+      emitter.addListener('DISCONNECTED', (device) => {
         console.log('DISCONNECT', device);
       }),
     ];

@@ -1,4 +1,4 @@
-package com.bluetoothplaygound.bluetooth;
+package com.bluetoothplayground.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import com.facebook.react.bridge.Arguments;

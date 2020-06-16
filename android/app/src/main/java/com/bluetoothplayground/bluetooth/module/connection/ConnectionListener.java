@@ -1,4 +1,4 @@
-package com.bluetoothplaygound.bluetooth.module.connection;
+package com.bluetoothplayground.bluetooth.module.connection;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;

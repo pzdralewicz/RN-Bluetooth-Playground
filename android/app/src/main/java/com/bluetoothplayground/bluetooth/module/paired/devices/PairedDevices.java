@@ -1,6 +1,6 @@
-package com.bluetoothplaygound.bluetooth.module.paired.devices;
+package com.bluetoothplayground.bluetooth.module.paired.devices;
 
-import static com.bluetoothplaygound.bluetooth.BluetoothDeviceMapFactory.queryWritableMapFromDevice;
+import static com.bluetoothplayground.bluetooth.BluetoothDeviceMapFactory.queryWritableMapFromDevice;
 
 import android.bluetooth.BluetoothAdapter;
 import com.facebook.react.bridge.Promise;

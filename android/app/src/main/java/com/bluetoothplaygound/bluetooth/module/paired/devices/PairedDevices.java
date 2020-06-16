@@ -4,7 +4,6 @@ import static com.bluetoothplaygound.bluetooth.BluetoothDeviceMapFactory.queryWr
 
 import android.bluetooth.BluetoothAdapter;
 import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 
 public class PairedDevices {
@@ -15,8 +14,7 @@ public class PairedDevices {
     this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   }
 
-  @ReactMethod
-  void listPaired(Promise promise) {
+  void queryPaired(Promise promise) {
     WritableArray params = queryWritableMapFromDevice(bluetoothAdapter.getBondedDevices());
     promise.resolve(params);
   }

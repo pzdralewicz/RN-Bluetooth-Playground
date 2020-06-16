@@ -14,7 +14,7 @@ public class PairedDevices {
     this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   }
 
-  void queryPaired(Promise promise) {
+  public void queryPaired(Promise promise) {
     WritableArray params = queryWritableMapFromDevice(bluetoothAdapter.getBondedDevices());
     promise.resolve(params);
   }

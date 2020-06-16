@@ -17,12 +17,12 @@ public class BluetoothDeviceMapFactory {
 
   public static WritableArray queryWritableMapFromDevice(Set<BluetoothDevice> devices) {
     WritableArray params = Arguments.createArray();
-    WritableMap map = Arguments.createMap();
     for (BluetoothDevice device : devices) {
+      WritableMap map = Arguments.createMap();
       map.putString("name", device.getName());
       map.putString("address", device.getAddress());
+      params.pushMap(map);
     }
-    params.pushMap(map);
     return params;
   }
 }

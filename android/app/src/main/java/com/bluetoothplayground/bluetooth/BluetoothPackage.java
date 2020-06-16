@@ -1,7 +1,7 @@
-package com.bluetoothplaygound.bluetooth;
+package com.bluetoothplayground.bluetooth;
 
 import androidx.annotation.NonNull;
-import com.bluetoothplaygound.bluetooth.module.BluetoothModule;
+import com.bluetoothplayground.bluetooth.module.BluetoothModule;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;

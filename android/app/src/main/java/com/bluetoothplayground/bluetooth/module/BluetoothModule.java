@@ -1,9 +1,9 @@
-package com.bluetoothplaygound.bluetooth.module;
+package com.bluetoothplayground.bluetooth.module;
 
 import androidx.annotation.NonNull;
-import com.bluetoothplaygound.bluetooth.module.connection.ConnectionListener;
-import com.bluetoothplaygound.bluetooth.module.paired.devices.PairedDevices;
-import com.bluetoothplaygound.bluetooth.module.state.BluetoothStateListener;
+import com.bluetoothplayground.bluetooth.module.connection.ConnectionListener;
+import com.bluetoothplayground.bluetooth.module.paired.devices.PairedDevices;
+import com.bluetoothplayground.bluetooth.module.state.BluetoothStateListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 

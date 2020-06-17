@@ -1,12 +1,18 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {BTListener} from './src/components/BTListener';
-import {requestBTPermissions} from './src/components/helpers';
+import {hasBTPermissions, requestBTPermissions} from './src/components/helpers';
 
 const App = () => {
   useEffect(() => {
-    requestBTPermissions();
-  });
+    const checkPermissions = async () => {
+      if (!(await hasBTPermissions())) {
+        requestBTPermissions();
+      }
+    };
+
+    checkPermissions();
+  }, []);
 
   return (
     <>

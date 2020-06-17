@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothDevice;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import java.util.List;
 import java.util.Set;
 
 public class BluetoothDeviceMapFactory {
@@ -18,12 +17,12 @@ public class BluetoothDeviceMapFactory {
 
   public static WritableArray queryWritableMapFromDevice(Set<BluetoothDevice> devices) {
     WritableArray params = Arguments.createArray();
-    WritableMap map = Arguments.createMap();
     for (BluetoothDevice device : devices) {
+      WritableMap map = Arguments.createMap();
       map.putString("name", device.getName());
       map.putString("address", device.getAddress());
+      params.pushMap(map);
     }
-    params.pushMap(map);
     return params;
   }
 }

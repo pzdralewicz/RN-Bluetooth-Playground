@@ -47,6 +47,10 @@ export const BTListener = () => {
     const paired = await Bluetooth.listPaired();
     const unpaired = await Bluetooth.listUnpaired();
 
+    const deviceCount = paired.length + unpaired.length;
+
+    setStatus(`Found total of ${deviceCount} devices`);
+
     setDevices({
       paired,
       unpaired,

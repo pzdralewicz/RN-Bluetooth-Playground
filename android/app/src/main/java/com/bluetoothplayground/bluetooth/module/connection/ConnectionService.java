@@ -53,7 +53,10 @@ public class ConnectionService {
   @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
   public void disconnect(String address) {
     BluetoothGatt bluetoothGatt = bluetoothGattMap.get(address);
-    if (bluetoothGatt != null) bluetoothGatt.disconnect();
+    if (bluetoothGatt != null) {
+      bluetoothGatt.disconnect();
+      bluetoothGattMap.remove(address);
+    }
   }
 
   @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)

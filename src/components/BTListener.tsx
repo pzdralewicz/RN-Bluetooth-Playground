@@ -62,10 +62,9 @@ export const BTListener = () => {
 
   const onDevicePress = async ({address}: Device) => {
     console.log('onDevicePress');
-    const {isConnected, connect, disconnect} = Bluetooth;
+    const {connect} = Bluetooth;
 
-    if (await isConnected(address)) connect(address);
-    else disconnect(address);
+    connect(address);
   };
 
   const onDeviceLongPress = ({address}: Device) => {

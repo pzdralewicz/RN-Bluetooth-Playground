@@ -2,6 +2,7 @@ package com.bluetoothplayground.bluetooth.module;
 
 import androidx.annotation.NonNull;
 import com.bluetoothplayground.bluetooth.module.connection.ConnectionListener;
+import com.bluetoothplayground.bluetooth.module.connection.ConnectionService;
 import com.bluetoothplayground.bluetooth.module.discover.DiscoverDevices;
 import com.bluetoothplayground.bluetooth.module.paired.devices.PairedDevices;
 import com.bluetoothplayground.bluetooth.module.state.BluetoothStateListener;
@@ -34,7 +35,12 @@ public class BluetoothModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void requestEnable(Promise promise) {
+  public void listUnpaired(Promise promise) {
     new DiscoverDevices(reactContext).findDevices(promise);
+  }
+
+  @ReactMethod
+  public void connect(String address, Promise promise) {
+    new ConnectionService().connectToAddress(address, promise,reactContext);
   }
 }

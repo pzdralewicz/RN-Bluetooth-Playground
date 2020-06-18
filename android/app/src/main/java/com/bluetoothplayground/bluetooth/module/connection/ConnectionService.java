@@ -47,7 +47,7 @@ public class ConnectionService {
     BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
     bluetoothGattMap.put(
         device.getAddress(),
-        device.connectGatt(reactContext, true, new BluetoothGattCallback() {}));
+        device.connectGatt(reactContext, false, new BluetoothGattCallback() {}));
   }
 
   @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)

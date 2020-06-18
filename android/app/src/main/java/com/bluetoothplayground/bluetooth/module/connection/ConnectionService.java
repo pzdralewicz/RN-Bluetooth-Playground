@@ -4,65 +4,76 @@ import static com.bluetoothplayground.bluetooth.BluetoothDeviceMapFactory.queryW
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.util.Log;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
+import android.os.Build.VERSION_CODES;
+import androidx.annotation.RequiresApi;
 import com.bluetoothplayground.bluetooth.EventDispatcher;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
-import java.io.IOException;
-import java.util.UUID;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ConnectionService {
+@RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
+public class ConnectionService extends BluetoothGattCallback {
 
-  private static final UUID MY_UUID = UUID.fromString("00002A00-0000-1000-8000-00805F9B34FB");
   private final EventDispatcher eventDispatcher = new EventDispatcher();
-  private BluetoothSocket socket;
+  private final ReactApplicationContext reactContext;
+  private Map<String, BluetoothGatt> bluetoothGattMap = new HashMap<>();
 
-  public void connected(BluetoothDevice device, ReactApplicationContext reactContext) {
+  public ConnectionService(ReactApplicationContext reactContext) {
+    this.reactContext = reactContext;
+  }
+
+  public void connected(BluetoothDevice device) {
     eventDispatcher.sendEvent(
         reactContext, Status.CONNECTED.name(), queryWritableMapFromDevice(device));
   }
 
-  public void disconnected(BluetoothDevice device, ReactApplicationContext reactContext) {
+  public void disconnected(BluetoothDevice device) {
     eventDispatcher.sendEvent(
         reactContext, Status.DISCONNECTED.name(), queryWritableMapFromDevice(device));
   }
 
-  public void connectToAddress(String address, Promise promise, ReactContext reactContext) {
-    new Bluetooth(reactContext).connectToAddress(address);
-    promise.resolve("Connected");
+  @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
+  public void connectToAddress(String address) {
+    BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+    bluetoothGattMap.put(
+        device.getAddress(),
+        device.connectGatt(reactContext, true, new BluetoothGattCallback() {}));
   }
 
-  public void pair(String address, ReactContext reactContext) {
-
-    new Bluetooth(reactContext).pair(BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address));
+  @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
+  public void disconnect(String address) {
+    BluetoothGatt bluetoothGatt = bluetoothGattMap.get(address);
+    if (bluetoothGatt != null) bluetoothGatt.disconnect();
   }
 
-  private class ConnectThread extends Thread {
-    public ConnectThread(BluetoothDevice device) {
-      try {
-        ConnectionService.this.socket = device.createRfcommSocketToServiceRecord(MY_UUID);
-      } catch (IOException e) {
-        Log.e("Error", e.toString());
-      }
+  @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
+  public void isConnected(String address, Promise promise) {
+    BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+    promise.resolve(isConnectedBLE(device, reactContext) || isConnectedClassic(device));
+  }
+
+  private boolean isConnectedClassic(BluetoothDevice device) {
+    try {
+      Method m = device.getClass().getMethod("isConnected", (Class[]) null);
+      return (boolean) m.invoke(device, (Object[]) null);
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
     }
+  }
 
-    public void run() {
-      BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-
-      try {
-        socket.connect();
-        new Thread().start();
-
-      } catch (IOException e) {
-        Log.i("KURWA", "KURWA: " + e);
-        try {
-          socket.close();
-        } catch (IOException closeException) {
-          Log.e("Error", e.toString());
-        }
-      }
-    }
+  @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
+  private boolean isConnectedBLE(BluetoothDevice device, ReactContext reactContext) {
+    BluetoothManager bm =
+        (BluetoothManager) reactContext.getSystemService(Context.BLUETOOTH_SERVICE);
+    List<BluetoothDevice> devices = bm.getConnectedDevices(BluetoothGatt.GATT);
+    return devices.contains(device);
   }
 }

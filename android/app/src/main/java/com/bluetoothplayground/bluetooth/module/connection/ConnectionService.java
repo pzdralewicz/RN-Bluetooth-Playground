@@ -20,14 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
-public class ConnectionService extends BluetoothGattCallback {
+public class ConnectionService {
 
   private final EventDispatcher eventDispatcher = new EventDispatcher();
   private final ReactApplicationContext reactContext;
-  private Map<String, BluetoothGatt> bluetoothGattMap = new HashMap<>();
+  private final Map<String, BluetoothGatt> bluetoothGattMap = new HashMap<>();
+  private final BluetoothAdapter bluetoothAdapter;
 
   public ConnectionService(ReactApplicationContext reactContext) {
     this.reactContext = reactContext;
+    this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   }
 
   public void connected(BluetoothDevice device) {
@@ -42,7 +44,7 @@ public class ConnectionService extends BluetoothGattCallback {
 
   @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
   public void connectToAddress(String address) {
-    BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+    BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
     bluetoothGattMap.put(
         device.getAddress(),
         device.connectGatt(reactContext, true, new BluetoothGattCallback() {}));
@@ -56,7 +58,7 @@ public class ConnectionService extends BluetoothGattCallback {
 
   @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
   public void isConnected(String address, Promise promise) {
-    BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+    BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
     promise.resolve(isConnectedBLE(device, reactContext) || isConnectedClassic(device));
   }
 

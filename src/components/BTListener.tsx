@@ -44,17 +44,19 @@ export const BTListener = () => {
     console.log('Load devices');
     setStatus('Loading devices');
 
-    const paired = await Bluetooth.listPaired();
-    const unpaired = await Bluetooth.listUnpaired();
+    try {
+      const paired = await Bluetooth.listPaired();
+      const unpaired = await Bluetooth.listUnpaired();
+      const deviceCount = paired.length + unpaired.length;
 
-    const deviceCount = paired.length + unpaired.length;
-
-    setStatus(`Found total of ${deviceCount} devices`);
-
-    setDevices({
-      paired,
-      unpaired,
-    });
+      setStatus(`Found ${deviceCount} devices`);
+      setDevices({
+        paired,
+        unpaired,
+      });
+    } catch (err) {
+      setStatus(err);
+    }
   };
 
   const requestEnable = async () => {
@@ -66,22 +68,21 @@ export const BTListener = () => {
 
   const onDevicePress = async ({address}: Device) => {
     console.log('onDevicePress');
-    const {isConnected, connect, disconnect} = Bluetooth;
+    const {connect} = Bluetooth;
 
-    if (await isConnected(address)) connect(address);
-    else disconnect(address);
+    setStatus(`Connecting to ${address}`);
+    connect(address);
   };
 
   const onDeviceLongPress = ({address}: Device) => {
     console.log('onDeviceLongPress');
-    const isPaired = devices.paired.find((paired) => paired.address === address,
-    );
 
-    if (!isPaired) Bluetooth.pair(address);
+    setStatus(`Disconnecting from ${address}`);
+    Bluetooth.disconnect(address);
   };
 
   const renderDevices = (devices: Device[]) => {
-    return devices.map(device => (
+    return devices.map((device) => (
       <Styled.ItemContainer
         onPress={() => onDevicePress(device)}
         onLongPress={() => onDeviceLongPress(device)}>

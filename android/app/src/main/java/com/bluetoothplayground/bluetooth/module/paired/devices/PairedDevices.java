@@ -4,6 +4,7 @@ import static com.bluetoothplayground.bluetooth.BluetoothDeviceMapFactory.queryW
 
 import android.bluetooth.BluetoothAdapter;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableArray;
 
 public class PairedDevices {

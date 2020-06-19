@@ -74,8 +74,7 @@ export const BTListener = () => {
 
   const onDeviceLongPress = ({address}: Device) => {
     console.log('onDeviceLongPress');
-    const isPaired = devices.paired.find(
-      (paired) => paired.address === address,
+    const isPaired = devices.paired.find((paired) => paired.address === address,
     );
 
     if (!isPaired) Bluetooth.pair(address);

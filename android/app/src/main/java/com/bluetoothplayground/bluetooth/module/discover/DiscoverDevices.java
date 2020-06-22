@@ -46,7 +46,7 @@ public class DiscoverDevices {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
               BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-              if (device.getType() == 2) {
+              if (device.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
                 bluetoothDeviceList.add(device);
               }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {

@@ -25,7 +25,7 @@ public class DiscoverDevices {
     this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   }
 
-  public void findAllDevices(Promise promise) {
+  public void findBLEDevices(Promise promise) {
     bluetoothAdapter.startDiscovery();
     discoverDevices(promise);
   }

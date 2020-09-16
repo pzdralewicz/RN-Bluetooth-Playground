@@ -1,4 +1,5 @@
 import {
+  NativeEventEmitter,
   NativeModules,
   NativeModulesStatic,
 } from 'react-native';
@@ -11,6 +12,7 @@ export interface BluetoothBridge extends BluetoothNativeModule {
 class Bluetooth implements BluetoothBridge {
   nativeModule = NativeModules.BluetoothModule;
   private static instance: Bluetooth;
+  private static eventListener: NativeEventEmitter;
 
   private constructor() {}
 
@@ -22,7 +24,17 @@ class Bluetooth implements BluetoothBridge {
     return Bluetooth.instance;
   };
 
-  getNativeModule = this.nativeModule;
+  public static getEventListener = (): NativeEventEmitter => {
+    if (Bluetooth.eventListener === undefined) {
+      Bluetooth.eventListener = new NativeEventEmitter(
+        Bluetooth.instance.getNativeModule()
+      );
+    }
+
+    return Bluetooth.eventListener;
+  };
+
+  getNativeModule = () => this.nativeModule;
 
   enableBluetooth = async () => {
     return await this.nativeModule.enableBluetooth();

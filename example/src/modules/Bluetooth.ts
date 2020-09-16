@@ -1,17 +1,18 @@
-import {EventSubscriptionVendor, NativeModules, NativeModulesStatic} from 'react-native';
-import type {
-  BluetoothNativeModule,
-} from '../interfaces/BluetoothNativeModule';
+import {
+  NativeEventEmitter,
+  NativeModules,
+  NativeModulesStatic,
+} from 'react-native';
+import type { BluetoothNativeModule } from '../interfaces/BluetoothNativeModule';
 
 export interface BluetoothBridge extends BluetoothNativeModule {
-  getNativeModule: () => NativeModulesStatic;
+  getNativeModule: NativeModulesStatic;
 }
 
 class Bluetooth implements BluetoothBridge {
-  nativeModule = <NativeModulesStatic & BluetoothNativeModule & EventSubscriptionVendor>(
-    NativeModules.BluetoothModule
-  );
+  nativeModule = NativeModules.BluetoothModule;
   private static instance: Bluetooth;
+  private static eventListener: NativeEventEmitter;
 
   private constructor() {}
 
@@ -21,6 +22,16 @@ class Bluetooth implements BluetoothBridge {
     }
 
     return Bluetooth.instance;
+  };
+
+  public static getEventListener = (): NativeEventEmitter => {
+    if (Bluetooth.eventListener === undefined) {
+      Bluetooth.eventListener = new NativeEventEmitter(
+        Bluetooth.instance.getNativeModule()
+      );
+    }
+
+    return Bluetooth.eventListener;
   };
 
   getNativeModule = () => this.nativeModule;

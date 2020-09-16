@@ -21,6 +21,7 @@ public class BluetoothModule extends ReactContextBaseJavaModule {
   private final ConnectionService connectionService;
   private final BluetoothStateService bluetoothStateService;
 
+  @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)
   public BluetoothModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
@@ -44,7 +45,7 @@ public class BluetoothModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void listUnpaired(Promise promise) {
-    new DiscoverDevices(reactContext).findDevices(promise);
+    new DiscoverDevices(reactContext).findBLEDevices(promise);
   }
 
   @RequiresApi(api = VERSION_CODES.JELLY_BEAN_MR2)

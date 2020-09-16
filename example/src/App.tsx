@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {BTListener} from './src/components/BTListener';
-import {hasBTPermissions, requestBTPermissions} from './src/components/helpers';
+import {BTListener} from './components/BTListener';
+import {hasBTPermissions, requestBTPermissions} from './components/helpers';
 
 const App = () => {
   useEffect(() => {

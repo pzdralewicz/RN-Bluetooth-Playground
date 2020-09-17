@@ -1,6 +1,6 @@
 {
   "name": "react-native-sf-bluetooth-module",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "description": "SmartFactors bridge implementation for Bluetooth native module",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

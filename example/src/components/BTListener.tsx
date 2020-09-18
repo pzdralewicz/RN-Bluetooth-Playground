@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {NativeEventEmitter, Text} from 'react-native';
 import * as Styled from './BTListener.styles';
-import BluetoothModule from '../modules/Bluetooth';
-import type {BTError, Device} from '../interfaces/BluetoothNativeModule';
+import BluetoothModule from 'react-native-sf-bluetooth-module';
+import type {BTError, Device} from '../../../src/interfaces/BluetoothNativeModule';
 
 export const BTListener = () => {
   const [status, setStatus] = useState('Starting status');

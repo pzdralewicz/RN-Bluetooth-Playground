@@ -30,7 +30,7 @@ public class DiscoverDevices {
     discoverDevices(promise);
   }
 
-  private void discoverDevices(Promise promise) {
+  private void discoverDevices(final Promise promise) {
     IntentFilter intentFilter = new IntentFilter();
 
     intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
